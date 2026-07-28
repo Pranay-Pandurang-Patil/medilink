@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:lottie/lottie.dart';
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
@@ -15,15 +15,16 @@ class SplashScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
+                  width: 140,
+                  height: 140,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Colors.green.shade50,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
-                    Icons.local_pharmacy,
-                    size: 80,
-                    color: Colors.green,
+                  child: Image.asset(
+                    'assets/images/logo_mediLink.png',
+                    fit: BoxFit.contain,
                   ),
                 ),
 
@@ -45,6 +46,16 @@ class SplashScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 40),
+
+                SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: Lottie.asset(
+                    'assets/animations/Pulse.json',
+                    repeat: true,
                   ),
                 ),
               ],
