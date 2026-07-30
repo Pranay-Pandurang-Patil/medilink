@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     shape: BoxShape.circle,
                   ),
                   child: Image.asset(
-                    'assets/images/logo_mediLink.png',
+                    'assets/images/logo_full.png',
                     fit: BoxFit.contain,
                   ),
                 ),
