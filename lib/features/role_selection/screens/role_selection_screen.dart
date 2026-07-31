@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medilink/features/auth/screens/login_screen.dart';
 
 class RoleSelectionScreen extends StatelessWidget {
   const RoleSelectionScreen({super.key});
@@ -65,7 +66,14 @@ class RoleSelectionScreen extends StatelessWidget {
                   icon: Icons.person,
                   title: 'Continue as Customer',
                   subtitle: 'Find and order medicines easily',
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                    );
+                  },
                 ),
 
                 const SizedBox(height: 22),
@@ -75,7 +83,14 @@ class RoleSelectionScreen extends StatelessWidget {
                   icon: Icons.store,
                   title: 'Continue as Store Owner',
                   subtitle: 'Manage your store and medicines',
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                    );
+                  },
                 ),
 
                 const SizedBox(height: 45),
