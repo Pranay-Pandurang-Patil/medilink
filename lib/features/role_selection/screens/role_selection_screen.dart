@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medilink/features/auth/screens/login_screen.dart';
+import 'package:medilink/features/auth/screens/auth_choice_screen.dart';
 
 class RoleSelectionScreen extends StatelessWidget {
   const RoleSelectionScreen({super.key});
@@ -70,7 +70,7 @@ class RoleSelectionScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
+                        builder: (context) => const AuthChoiceScreen(),
                       ),
                     );
                   },
@@ -87,7 +87,7 @@ class RoleSelectionScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
+                        builder: (context) => const AuthChoiceScreen(),
                       ),
                     );
                   },
