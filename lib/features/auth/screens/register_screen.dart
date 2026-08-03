@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:medilink/shared/widgets/custom_button.dart';
+import 'package:medilink/shared/widgets/custom_text_field.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -82,130 +84,82 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
 
                 const SizedBox(height: 35),
-                TextFormField(
+                CustomTextField(
                   controller: nameController,
-                  decoration: InputDecoration(
-                    labelText: "Full Name",
-                    hintText: "Enter your full name",
-                    prefixIcon: const Icon(Icons.person_outline),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
+                  labelText: "Full Name",
+                  hintText: "Enter your full name",
+                  prefixIcon: Icons.person_outline,
                 ),
 
                 const SizedBox(height: 18),
 
-                TextFormField(
+                CustomTextField(
                   controller: emailController,
+                  labelText: "Email",
+                  hintText: "Enter your email",
+                  prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    hintText: "Enter your email",
-                    prefixIcon: const Icon(Icons.email_outlined),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
                 ),
                 const SizedBox(height: 18),
 
-                TextFormField(
+                CustomTextField(
                   controller: phoneController,
+                  labelText: "Mobile Number",
+                  hintText: "Enter your mobile number",
+                  prefixIcon: Icons.phone_outlined,
                   keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(
-                    labelText: "Mobile Number",
-                    hintText: "Enter your mobile number",
-                    prefixIcon: const Icon(Icons.phone_outlined),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
                 ),
-
                 const SizedBox(height: 18),
-
-                TextFormField(
+                CustomTextField(
                   controller: passwordController,
+                  labelText: "Password",
+                  hintText: "Enter your password",
+                  prefixIcon: Icons.lock_outline,
                   obscureText: obscurePassword,
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    hintText: "Enter your password",
-                    prefixIcon: const Icon(Icons.lock_outline),
-
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        obscurePassword
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          obscurePassword = !obscurePassword;
-                        });
-                      },
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      obscurePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
                     ),
-
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
+                    onPressed: () {
+                      setState(() {
+                        obscurePassword = !obscurePassword;
+                      });
+                    },
                   ),
                 ),
                 const SizedBox(height: 18),
 
-                TextFormField(
-                  controller: confirmPasswordController,
-                  obscureText: obscureConfirmPassword,
-                  decoration: InputDecoration(
-                    labelText: "Confirm Password",
-                    hintText: "Re-enter your password",
-                    prefixIcon: const Icon(Icons.lock_outline),
-
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        obscureConfirmPassword
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          obscureConfirmPassword =
-                          !obscureConfirmPassword;
-                        });
-                      },
-                    ),
-
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
+              CustomTextField(
+                controller: confirmPasswordController,
+                labelText: "Confirm Password",
+                hintText: "Re-enter your password",
+                prefixIcon: Icons.lock_outline,
+                obscureText: obscureConfirmPassword,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    obscureConfirmPassword
+                        ? Icons.visibility_off
+                        : Icons.visibility,
                   ),
+                  onPressed: () {
+                    setState(() {
+                      obscureConfirmPassword =
+                      !obscureConfirmPassword;
+                    });
+                  },
                 ),
+              ),
                 const SizedBox(height: 25),
 
-                SizedBox(
-                  width: double.infinity,
-                  height: 55,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // TODO: Register Logic
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      foregroundColor: Colors.white,
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                    ),
-                    child: const Text(
-                      "Create Account",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                CustomButton(
+                  text: "Create Account",
+                  onPressed: () {
+                    // TODO: Register Logic
+                  },
                 ),
+
 
                 const SizedBox(height: 25),
 

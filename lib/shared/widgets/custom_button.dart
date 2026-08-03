@@ -21,13 +21,29 @@ class CustomButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: 55,
-      child: ElevatedButton.icon(
+      child: icon == null
+          ? ElevatedButton(
         onPressed: onPressed,
-
-        icon: icon != null
-            ? Icon(icon, color: textColor)
-            : const SizedBox.shrink(),
-
+        style: ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor,
+          foregroundColor: textColor,
+          elevation: 3,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: textColor,
+          ),
+        ),
+      )
+          : ElevatedButton.icon(
+        onPressed: onPressed,
+        icon: Icon(icon, color: textColor),
         label: Text(
           text,
           style: TextStyle(
@@ -36,9 +52,9 @@ class CustomButton extends StatelessWidget {
             color: textColor,
           ),
         ),
-
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
+          foregroundColor: textColor,
           elevation: 3,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),

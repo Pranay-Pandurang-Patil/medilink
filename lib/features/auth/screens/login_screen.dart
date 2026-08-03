@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import 'package:medilink/shared/widgets/custom_button.dart';
+import 'package:medilink/shared/widgets/custom_text_field.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -71,44 +74,32 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
 
                 const SizedBox(height: 35),
-                TextFormField(
+                CustomTextField(
                   controller: emailController,
+                  labelText: "Email",
+                  hintText: "Enter your email",
+                  prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    hintText: "Enter your email",
-                    prefixIcon: const Icon(Icons.email_outlined),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
                 ),
                 const SizedBox(height: 18),
 
-                TextFormField(
+                CustomTextField(
                   controller: passwordController,
+                  labelText: "Password",
+                  hintText: "Enter your password",
+                  prefixIcon: Icons.lock_outline,
                   obscureText: obscurePassword,
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    hintText: "Enter your password",
-                    prefixIcon: const Icon(Icons.lock_outline),
-
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        obscurePassword
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          obscurePassword = !obscurePassword;
-                        });
-                      },
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      obscurePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
                     ),
-
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
+                    onPressed: () {
+                      setState(() {
+                        obscurePassword = !obscurePassword;
+                      });
+                    },
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -130,29 +121,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 20),
 
-                SizedBox(
-                  width: double.infinity,
-                  height: 55,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // TODO: Login Logic
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      foregroundColor: Colors.white,
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                    ),
-                    child: const Text(
-                      "Login",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                CustomButton(
+                  text: "Login",
+                  onPressed: () {
+                    // TODO: Login Logic
+                  },
                 ),
                 const SizedBox(height: 25),
 
