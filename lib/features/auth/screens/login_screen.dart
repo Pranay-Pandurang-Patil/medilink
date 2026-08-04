@@ -80,6 +80,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintText: "Enter your email",
                   prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
+
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Please enter your email";
+                    }
+
+                    if (!value.contains("@") || !value.contains(".")) {
+                      return "Please enter a valid email";
+                    }
+
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 18),
 
@@ -89,6 +101,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintText: "Enter your password",
                   prefixIcon: Icons.lock_outline,
                   obscureText: obscurePassword,
+
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your password";
+                    }
+
+                    if (value.length < 6) {
+                      return "Password must be at least 6 characters";
+                    }
+
+                    return null;
+                  },
+
                   suffixIcon: IconButton(
                     icon: Icon(
                       obscurePassword
@@ -124,7 +149,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 CustomButton(
                   text: "Login",
                   onPressed: () {
-                    // TODO: Login Logic
+                    if (_formKey.currentState!.validate()) {
+                      // TODO: Login Logic
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Login Validation Successful"),
+                        ),
+                      );
+                    }
                   },
                 ),
                 const SizedBox(height: 25),
