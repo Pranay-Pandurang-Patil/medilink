@@ -89,6 +89,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   labelText: "Full Name",
                   hintText: "Enter your full name",
                   prefixIcon: Icons.person_outline,
+
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Please enter your full name";
+                    }
+
+                    if (value.trim().length < 3) {
+                      return "Name must be at least 3 characters";
+                    }
+
+                    return null;
+                  },
                 ),
 
                 const SizedBox(height: 18),
@@ -99,6 +111,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   hintText: "Enter your email",
                   prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
+
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Please enter your email";
+                    }
+
+                    if (!value.contains("@") || !value.contains(".")) {
+                      return "Please enter a valid email";
+                    }
+
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 18),
 
@@ -108,6 +132,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   hintText: "Enter your mobile number",
                   prefixIcon: Icons.phone_outlined,
                   keyboardType: TextInputType.phone,
+
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Please enter your mobile number";
+                    }
+
+                    if (value.length != 10) {
+                      return "Mobile number must be 10 digits";
+                    }
+
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 18),
                 CustomTextField(
@@ -116,6 +152,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   hintText: "Enter your password",
                   prefixIcon: Icons.lock_outline,
                   obscureText: obscurePassword,
+
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your password";
+                    }
+
+                    if (value.length < 6) {
+                      return "Password must be at least 6 characters";
+                    }
+
+                    return null;
+                  },
+
                   suffixIcon: IconButton(
                     icon: Icon(
                       obscurePassword
@@ -131,32 +180,50 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 const SizedBox(height: 18),
 
-              CustomTextField(
-                controller: confirmPasswordController,
-                labelText: "Confirm Password",
-                hintText: "Re-enter your password",
-                prefixIcon: Icons.lock_outline,
-                obscureText: obscureConfirmPassword,
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    obscureConfirmPassword
-                        ? Icons.visibility_off
-                        : Icons.visibility,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      obscureConfirmPassword =
-                      !obscureConfirmPassword;
-                    });
+                CustomTextField(
+                  controller: confirmPasswordController,
+                  labelText: "Confirm Password",
+                  hintText: "Re-enter your password",
+                  prefixIcon: Icons.lock_outline,
+                  obscureText: obscureConfirmPassword,
+
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please confirm your password";
+                    }
+
+                    if (value != passwordController.text) {
+                      return "Passwords do not match";
+                    }
+
+                    return null;
                   },
+
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      obscureConfirmPassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        obscureConfirmPassword = !obscureConfirmPassword;
+                      });
+                    },
+                  ),
                 ),
-              ),
                 const SizedBox(height: 25),
 
                 CustomButton(
                   text: "Create Account",
                   onPressed: () {
-                    // TODO: Register Logic
+                    if (_formKey.currentState!.validate()) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Registration Validation Successful"),
+                        ),
+                      );
+                    }
                   },
                 ),
 
