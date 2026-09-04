@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import 'package:medilink/features/auth/screens/register_screen.dart';
+import 'package:medilink/features/dashboard/screens/main_screen.dart';
 import 'package:medilink/shared/widgets/custom_button.dart';
 import 'package:medilink/shared/widgets/custom_text_field.dart';
 
@@ -12,16 +14,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  // Form Key
   final _formKey = GlobalKey<FormState>();
 
-  // Controllers
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  // Variables
   bool obscurePassword = true;
-  bool isLoading = false;
 
   @override
   void dispose() {
@@ -30,13 +28,36 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  void _login() {
+    if (_formKey.currentState!.validate()) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const MainScreen(),
+        ),
+      );
+    }
+  }
+
+  void _openRegisterScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const RegisterScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF7FAFC),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 24,
+            vertical: 20,
+          ),
           child: Form(
             key: _formKey,
             child: Column(
@@ -46,74 +67,79 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 Lottie.asset(
                   'assets/animations/login_animation.json',
-                  height: 240,
+                  height: 220,
                   repeat: true,
                 ),
 
                 const SizedBox(height: 10),
 
-                Image.asset('assets/images/logo_icon.png', height: 110),
+                Image.asset(
+                  'assets/images/logo_icon.png',
+                  height: 100,
+                ),
 
                 const SizedBox(height: 20),
 
                 const Text(
-                  "Welcome Back",
+                  'Owner Login',
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xff1F2937),
+                    color: Color(0xFF1F2937),
                   ),
                 ),
 
                 const SizedBox(height: 8),
 
                 const Text(
-                  "Sign in to continue to MediLink",
+                  'Sign in to manage your medical shop',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
                 ),
 
                 const SizedBox(height: 35),
+
                 CustomTextField(
                   controller: emailController,
-                  labelText: "Email",
-                  hintText: "Enter your email",
+                  labelText: 'Email',
+                  hintText: 'Enter your email',
                   prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
-
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return "Please enter your email";
+                      return 'Please enter your email';
                     }
 
-                    if (!value.contains("@") || !value.contains(".")) {
-                      return "Please enter a valid email";
+                    if (!value.contains('@') || !value.contains('.')) {
+                      return 'Please enter a valid email';
                     }
 
                     return null;
                   },
                 ),
+
                 const SizedBox(height: 18),
 
                 CustomTextField(
                   controller: passwordController,
-                  labelText: "Password",
-                  hintText: "Enter your password",
+                  labelText: 'Password',
+                  hintText: 'Enter your password',
                   prefixIcon: Icons.lock_outline,
                   obscureText: obscurePassword,
-
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Please enter your password";
+                      return 'Please enter your password';
                     }
 
                     if (value.length < 6) {
-                      return "Password must be at least 6 characters";
+                      return 'Password must be at least 6 characters';
                     }
 
                     return null;
                   },
-
                   suffixIcon: IconButton(
                     icon: Icon(
                       obscurePassword
@@ -127,16 +153,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                 ),
+
                 const SizedBox(height: 12),
 
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () {
-                      // TODO: Forgot Password Screen
+                      // TODO: Forgot password
                     },
                     child: const Text(
-                      "Forgot Password?",
+                      'Forgot Password?',
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
@@ -144,83 +171,41 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 20),
 
                 CustomButton(
-                  text: "Login",
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // TODO: Login Logic
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Login Validation Successful"),
-                        ),
-                      );
-                    }
-                  },
+                  text: 'Login',
+                  onPressed: _login,
                 ),
+
                 const SizedBox(height: 25),
 
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Expanded(
-                      child: Divider(
-                        thickness: 1,
+                    const Text(
+                      "Don't have an owner account? ",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black87,
                       ),
                     ),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Text(
-                        "OR",
+                    GestureDetector(
+                      onTap: _openRegisterScreen,
+                      child: const Text(
+                        'Create Account',
                         style: TextStyle(
-                          color: Colors.grey.shade700,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
                         ),
-                      ),
-                    ),
-
-                    const Expanded(
-                      child: Divider(
-                        thickness: 1,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
 
-                SizedBox(
-                  width: double.infinity,
-                  height: 55,
-                  child: OutlinedButton.icon(
-                    onPressed: () {
-                      // TODO: Google Sign-In
-                    },
-                    icon: const Icon(
-                      Icons.g_mobiledata,
-                      color: Colors.red,
-                      size: 32,
-                    ),
-                    label: const Text(
-                      "Continue with Google",
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(
-                        color: Colors.grey.shade300,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      backgroundColor: Colors.white,
-                    ),
-                  ),
-                ),
+                const SizedBox(height: 30),
               ],
             ),
           ),

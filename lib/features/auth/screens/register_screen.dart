@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+
 import 'package:medilink/shared/widgets/custom_button.dart';
 import 'package:medilink/shared/widgets/custom_text_field.dart';
 
@@ -11,14 +12,14 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+  TextEditingController();
 
   bool obscurePassword = true;
   bool obscureConfirmPassword = true;
@@ -31,6 +32,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
     passwordController.dispose();
     confirmPasswordController.dispose();
     super.dispose();
+  }
+
+  void _createAccount() {
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Account details are valid'),
+        ),
+      );
+
+      Future.delayed(const Duration(milliseconds: 800), () {
+        if (!mounted) return;
+
+        Navigator.pop(context);
+      });
+    }
   }
 
   @override
@@ -47,35 +64,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
             key: _formKey,
             child: Column(
               children: [
-
                 const SizedBox(height: 20),
 
                 Lottie.asset(
                   'assets/animations/login_animation.json',
-                  height: 220,
+                  height: 210,
+                  repeat: true,
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
 
                 Image.asset(
                   'assets/images/logo_icon.png',
-                  height: 100,
+                  height: 95,
                 ),
 
                 const SizedBox(height: 20),
 
                 const Text(
-                  "Create Account",
+                  'Create Owner Account',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
+                    color: Color(0xFF1F2937),
                   ),
                 ),
 
                 const SizedBox(height: 10),
 
                 const Text(
-                  "Join MediLink and manage your health with ease",
+                  'Create your account to manage your medical shop',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.grey,
@@ -84,19 +103,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
 
                 const SizedBox(height: 35),
+
                 CustomTextField(
                   controller: nameController,
-                  labelText: "Full Name",
-                  hintText: "Enter your full name",
+                  labelText: 'Owner Name',
+                  hintText: 'Enter your full name',
                   prefixIcon: Icons.person_outline,
-
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return "Please enter your full name";
+                      return 'Please enter your name';
                     }
 
                     if (value.trim().length < 3) {
-                      return "Name must be at least 3 characters";
+                      return 'Name must be at least 3 characters';
                     }
 
                     return null;
@@ -107,64 +126,63 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 CustomTextField(
                   controller: emailController,
-                  labelText: "Email",
-                  hintText: "Enter your email",
+                  labelText: 'Email',
+                  hintText: 'Enter your email',
                   prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
-
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return "Please enter your email";
+                      return 'Please enter your email';
                     }
 
-                    if (!value.contains("@") || !value.contains(".")) {
-                      return "Please enter a valid email";
+                    if (!value.contains('@') || !value.contains('.')) {
+                      return 'Please enter a valid email';
                     }
 
                     return null;
                   },
                 ),
+
                 const SizedBox(height: 18),
 
                 CustomTextField(
                   controller: phoneController,
-                  labelText: "Mobile Number",
-                  hintText: "Enter your mobile number",
+                  labelText: 'Mobile Number',
+                  hintText: 'Enter your mobile number',
                   prefixIcon: Icons.phone_outlined,
                   keyboardType: TextInputType.phone,
-
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return "Please enter your mobile number";
+                      return 'Please enter your mobile number';
                     }
 
                     if (value.length != 10) {
-                      return "Mobile number must be 10 digits";
+                      return 'Mobile number must be 10 digits';
                     }
 
                     return null;
                   },
                 ),
+
                 const SizedBox(height: 18),
+
                 CustomTextField(
                   controller: passwordController,
-                  labelText: "Password",
-                  hintText: "Enter your password",
+                  labelText: 'Password',
+                  hintText: 'Create a password',
                   prefixIcon: Icons.lock_outline,
                   obscureText: obscurePassword,
-
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Please enter your password";
+                      return 'Please enter a password';
                     }
 
                     if (value.length < 6) {
-                      return "Password must be at least 6 characters";
+                      return 'Password must be at least 6 characters';
                     }
 
                     return null;
                   },
-
                   suffixIcon: IconButton(
                     icon: Icon(
                       obscurePassword
@@ -178,27 +196,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
                 ),
+
                 const SizedBox(height: 18),
 
                 CustomTextField(
                   controller: confirmPasswordController,
-                  labelText: "Confirm Password",
-                  hintText: "Re-enter your password",
+                  labelText: 'Confirm Password',
+                  hintText: 'Re-enter your password',
                   prefixIcon: Icons.lock_outline,
                   obscureText: obscureConfirmPassword,
-
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Please confirm your password";
+                      return 'Please confirm your password';
                     }
 
                     if (value != passwordController.text) {
-                      return "Passwords do not match";
+                      return 'Passwords do not match';
                     }
 
                     return null;
                   },
-
                   suffixIcon: IconButton(
                     icon: Icon(
                       obscureConfirmPassword
@@ -207,86 +224,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     onPressed: () {
                       setState(() {
-                        obscureConfirmPassword = !obscureConfirmPassword;
+                        obscureConfirmPassword =
+                        !obscureConfirmPassword;
                       });
                     },
                   ),
                 ),
+
                 const SizedBox(height: 25),
 
                 CustomButton(
-                  text: "Create Account",
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Registration Validation Successful"),
-                        ),
-                      );
-                    }
-                  },
-                ),
-
-
-                const SizedBox(height: 25),
-
-                Row(
-                  children: [
-                    const Expanded(
-                      child: Divider(
-                        thickness: 1,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Text(
-                        "OR",
-                        style: TextStyle(
-                          color: Colors.grey.shade700,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    const Expanded(
-                      child: Divider(
-                        thickness: 1,
-                      ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 20),
-
-                SizedBox(
-                  width: double.infinity,
-                  height: 55,
-                  child: OutlinedButton.icon(
-                    onPressed: () {
-                      // TODO: Google Register
-                    },
-                    icon: const Icon(
-                      Icons.g_mobiledata,
-                      color: Colors.red,
-                      size: 32,
-                    ),
-                    label: const Text(
-                      "Continue with Google",
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(
-                        color: Colors.grey.shade300,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      backgroundColor: Colors.white,
-                    ),
-                  ),
+                  text: 'Create Account',
+                  onPressed: _createAccount,
                 ),
 
                 const SizedBox(height: 25),
@@ -295,7 +244,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "Already have an account? ",
+                      'Already have an owner account? ',
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.black87,
@@ -306,7 +255,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Navigator.pop(context);
                       },
                       child: const Text(
-                        "Login",
+                        'Login',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,

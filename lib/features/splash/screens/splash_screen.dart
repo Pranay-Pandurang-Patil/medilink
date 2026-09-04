@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:medilink/features/role_selection/screens/role_selection_screen.dart';
-
+import 'package:medilink/features/auth/screens/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const RoleSelectionScreen(),
+            builder: (context) => const LoginScreen(),
           ),
         );
       },
@@ -69,9 +68,13 @@ class _SplashScreenState extends State<SplashScreen> {
                 const SizedBox(height: 10),
 
                 const Text(
-                  'Your Trusted Medical Partner',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                  'Medical Shop Management',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
                 ),
+
                 const SizedBox(height: 40),
 
                 SizedBox(
