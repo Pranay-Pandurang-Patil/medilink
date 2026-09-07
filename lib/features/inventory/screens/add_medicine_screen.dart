@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
+import 'package:medilink/models/medicine.dart';
+import 'package:medilink/services/medicine_service.dart';
 import 'package:medilink/shared/widgets/custom_button.dart';
 import 'package:medilink/shared/widgets/custom_text_field.dart';
 
 class AddMedicineScreen extends StatefulWidget {
-  const AddMedicineScreen({super.key});
+  final Medicine? medicine;
+
+  const AddMedicineScreen({
+    super.key,
+    this.medicine,
+  });
 
   @override
   State<AddMedicineScreen> createState() => _AddMedicineScreenState();
@@ -12,6 +19,8 @@ class AddMedicineScreen extends StatefulWidget {
 
 class _AddMedicineScreenState extends State<AddMedicineScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  final MedicineService medicineService = MedicineService();
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController genericNameController =
@@ -23,6 +32,27 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
   final TextEditingController priceController = TextEditingController();
   final TextEditingController descriptionController =
   TextEditingController();
+
+  bool isSaving = false;
+
+  bool get isEditing => widget.medicine != null;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final medicine = widget.medicine;
+
+    if (medicine != null) {
+      nameController.text = medicine.name;
+      genericNameController.text = medicine.genericName;
+      manufacturerController.text = medicine.manufacturer;
+      categoryController.text = medicine.category;
+      unitController.text = medicine.unit;
+      priceController.text = medicine.sellingPrice.toString();
+      descriptionController.text = medicine.description;
+    }
+  }
 
   @override
   void dispose() {
@@ -36,29 +66,72 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
     super.dispose();
   }
 
-  void _saveMedicine() {
+  Future<void> _saveMedicine() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Medicine saved successfully'),
-      ),
-    );
+    setState(() {
+      isSaving = true;
+    });
 
-    Future.delayed(const Duration(milliseconds: 500), () {
+    try {
+      await medicineService.openBox();
+
+      final medicine = Medicine(
+        id: widget.medicine?.id ??
+            DateTime.now().millisecondsSinceEpoch.toString(),
+        name: nameController.text.trim(),
+        genericName: genericNameController.text.trim(),
+        manufacturer: manufacturerController.text.trim(),
+        category: categoryController.text.trim(),
+        unit: unitController.text.trim(),
+        sellingPrice: double.parse(priceController.text.trim()),
+        description: descriptionController.text.trim(),
+      );
+
+      await medicineService.box.put(
+        medicine.id,
+        medicine,
+      );
+
       if (!mounted) return;
 
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            isEditing
+                ? 'Medicine updated successfully'
+                : 'Medicine saved successfully',
+          ),
+        ),
+      );
+
       Navigator.pop(context);
-    });
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to save medicine: $e'),
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          isSaving = false;
+        });
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Medicine'),
+        title: Text(
+          isEditing ? 'Edit Medicine' : 'Add Medicine',
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -67,9 +140,11 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Medicine Information',
-                style: TextStyle(
+              Text(
+                isEditing
+                    ? 'Update Medicine Information'
+                    : 'Medicine Information',
+                style: const TextStyle(
                   fontSize: 21,
                   fontWeight: FontWeight.bold,
                 ),
@@ -77,7 +152,6 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
 
               const SizedBox(height: 18),
 
-              // REQUIRED
               CustomTextField(
                 controller: nameController,
                 labelText: 'Medicine Name *',
@@ -94,7 +168,6 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
 
               const SizedBox(height: 16),
 
-              // OPTIONAL
               CustomTextField(
                 controller: genericNameController,
                 labelText: 'Generic Name',
@@ -104,7 +177,6 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
 
               const SizedBox(height: 16),
 
-              // OPTIONAL
               CustomTextField(
                 controller: manufacturerController,
                 labelText: 'Manufacturer',
@@ -114,7 +186,6 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
 
               const SizedBox(height: 16),
 
-              // OPTIONAL
               CustomTextField(
                 controller: categoryController,
                 labelText: 'Category',
@@ -124,7 +195,6 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
 
               const SizedBox(height: 16),
 
-              // OPTIONAL
               CustomTextField(
                 controller: unitController,
                 labelText: 'Unit / Pack',
@@ -134,7 +204,6 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
 
               const SizedBox(height: 16),
 
-              // REQUIRED
               CustomTextField(
                 controller: priceController,
                 labelText: 'Selling Price *',
@@ -158,7 +227,6 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
 
               const SizedBox(height: 16),
 
-              // OPTIONAL
               CustomTextField(
                 controller: descriptionController,
                 labelText: 'Description',
@@ -169,9 +237,15 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
               const SizedBox(height: 28),
 
               CustomButton(
-                text: 'Save Medicine',
-                icon: Icons.save_outlined,
-                onPressed: _saveMedicine,
+                text: isSaving
+                    ? 'Saving...'
+                    : isEditing
+                    ? 'Update Medicine'
+                    : 'Save Medicine',
+                icon: isEditing
+                    ? Icons.update_outlined
+                    : Icons.save_outlined,
+                onPressed: isSaving ? () {} : _saveMedicine,
               ),
 
               const SizedBox(height: 20),
