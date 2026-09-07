@@ -18,15 +18,18 @@ class MedicineDetailsScreen extends StatefulWidget {
       _MedicineDetailsScreenState();
 }
 
-class _MedicineDetailsScreenState extends State<MedicineDetailsScreen> {
+class _MedicineDetailsScreenState
+    extends State<MedicineDetailsScreen> {
   final BatchService batchService = BatchService();
 
-  // Open the Hive box once when this State object is created.
-  final Future<void> _boxFuture = BatchService().openBox();
+  late Future<void> _boxFuture;
 
   @override
   void initState() {
     super.initState();
+
+    // Open the Hive box only once.
+    _boxFuture = batchService.openBox();
   }
 
   Future<void> _openAddBatch() async {
@@ -46,7 +49,9 @@ class _MedicineDetailsScreenState extends State<MedicineDetailsScreen> {
     setState(() {});
   }
 
-  Future<void> _increaseStock(MedicineBatch batch) async {
+  Future<void> _increaseStock(
+      MedicineBatch batch,
+      ) async {
     await batchService.increaseQuantity(batch.id);
 
     if (!mounted) {
@@ -56,7 +61,9 @@ class _MedicineDetailsScreenState extends State<MedicineDetailsScreen> {
     setState(() {});
   }
 
-  Future<void> _decreaseStock(MedicineBatch batch) async {
+  Future<void> _decreaseStock(
+      MedicineBatch batch,
+      ) async {
     if (batch.quantity <= 0) {
       return;
     }
@@ -70,7 +77,9 @@ class _MedicineDetailsScreenState extends State<MedicineDetailsScreen> {
     setState(() {});
   }
 
-  Future<void> _deleteBatch(MedicineBatch batch) async {
+  Future<void> _deleteBatch(
+      MedicineBatch batch,
+      ) async {
     final bool? shouldDelete = await showDialog<bool>(
       context: context,
       builder: (context) {
@@ -132,35 +141,17 @@ class _MedicineDetailsScreenState extends State<MedicineDetailsScreen> {
     return FutureBuilder<void>(
       future: _boxFuture,
       builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Medicine Details'),
-            ),
-            body: const Center(
+        if (snapshot.connectionState !=
+            ConnectionState.done) {
+          return const Scaffold(
+            body: Center(
               child: CircularProgressIndicator(),
             ),
           );
         }
 
-        if (snapshot.hasError) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Medicine Details'),
-            ),
-            body: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  'Failed to load batches.\n${snapshot.error}',
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          );
-        }
-
-        final batches = batchService.getBatchesForMedicine(
+        final batches =
+        batchService.getBatchesForMedicine(
           widget.medicine.id,
         );
 
@@ -176,7 +167,8 @@ class _MedicineDetailsScreenState extends State<MedicineDetailsScreen> {
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(20),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment:
+              CrossAxisAlignment.start,
               children: [
                 Text(
                   widget.medicine.name,
@@ -225,6 +217,7 @@ class _MedicineDetailsScreenState extends State<MedicineDetailsScreen> {
 
                 const SizedBox(height: 25),
 
+                // Total stock
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(18),
@@ -248,7 +241,8 @@ class _MedicineDetailsScreenState extends State<MedicineDetailsScreen> {
                       ),
                       const SizedBox(width: 15),
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment:
+                        CrossAxisAlignment.start,
                         children: [
                           Text(
                             'Total Stock',
@@ -274,7 +268,8 @@ class _MedicineDetailsScreenState extends State<MedicineDetailsScreen> {
                 const SizedBox(height: 30),
 
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
                       'Batches',
@@ -313,9 +308,8 @@ class _MedicineDetailsScreenState extends State<MedicineDetailsScreen> {
                   ...batches.map(
                         (batch) => _BatchCard(
                       batch: batch,
-                      formattedExpiry: _formatDate(
-                        batch.expiryDate,
-                      ),
+                      formattedExpiry:
+                      _formatDate(batch.expiryDate),
                       onIncrease: () {
                         _increaseStock(batch);
                       },
@@ -330,7 +324,8 @@ class _MedicineDetailsScreenState extends State<MedicineDetailsScreen> {
               ],
             ),
           ),
-          floatingActionButton: FloatingActionButton.extended(
+          floatingActionButton:
+          FloatingActionButton.extended(
             onPressed: _openAddBatch,
             icon: const Icon(Icons.add),
             label: const Text('Add Batch'),
@@ -365,7 +360,8 @@ class _BatchCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment:
+          CrossAxisAlignment.start,
           children: [
             Row(
               children: [
@@ -405,7 +401,8 @@ class _BatchCard extends StatelessWidget {
               children: [
                 _StockButton(
                   icon: Icons.remove,
-                  onPressed: batch.quantity > 0
+                  onPressed:
+                  batch.quantity > 0
                       ? onDecrease
                       : null,
                 ),
@@ -422,7 +419,8 @@ class _BatchCard extends StatelessWidget {
                       border: Border.all(
                         color: Colors.grey.shade300,
                       ),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius:
+                      BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [

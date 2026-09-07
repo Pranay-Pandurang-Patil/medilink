@@ -108,3 +108,19 @@ It motivates continued development and helps others discover the project.
 <p align="center">
 Made with ❤️ using Flutter
 </p>
+## 📜 License
+
+MediLink is released as a **proprietary portfolio project**.
+
+The public repository is provided for portfolio viewing, educational
+review, and project evaluation purposes.
+
+The source code, project structure, original implementation, and assets
+may not be copied, redistributed, commercially reused, or used to create
+derivative applications without prior written permission.
+
+See the [LICENSE](LICENSE) file for the complete terms.
+
+> **Note:** This repository is a public showcase version of MediLink.
+> Selected production implementation and business logic are intentionally
+> excluded.

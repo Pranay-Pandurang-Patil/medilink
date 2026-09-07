@@ -1,0 +1,56 @@
+MediLink Proprietary Portfolio License
+Copyright (c) 2026 Pranay Pandurang Patil. All Rights Reserved.
+
+This repository contains source code, documentation, assets, designs,
+and other materials related to the MediLink project.
+
+The repository is published publicly for portfolio, educational,
+demonstration, and evaluation purposes only.
+
+PERMITTED USE
+
+You may:
+- View the source code for evaluation and learning purposes.
+- Review the project architecture and implementation approach.
+- Reference the project as a portfolio project.
+
+RESTRICTIONS
+
+Without prior written permission from the copyright holder, you may NOT:
+
+- Copy substantial portions of the source code.
+- Reproduce the application or a substantially similar implementation
+  using this source code.
+- Redistribute the source code.
+- Publish modified or copied versions of the source code.
+- Use the source code or project assets in another application.
+- Use the project commercially.
+- Sell, sublicense, or otherwise distribute this project or derivative
+  works based on it.
+- Remove or modify copyright or attribution notices.
+
+PROJECT SHOWCASE
+
+This repository may intentionally omit selected production
+implementation details, business logic, services, integrations,
+authentication logic, notification logic, or other components.
+
+The public repository should therefore be considered a portfolio
+showcase rather than the complete production source code.
+
+THIRD-PARTY COMPONENTS
+
+Third-party packages, libraries, frameworks, fonts, icons, and other
+dependencies remain subject to their respective licenses.
+
+NO WARRANTY
+
+This project is provided for demonstration and educational purposes.
+The copyright holder provides no warranty regarding the completeness,
+accuracy, reliability, or fitness of this software for any particular
+purpose.
+
+CONTACT
+
+For permission to reuse, reproduce, modify, or commercially use any
+part of this project, contact the copyright holder.
