@@ -20,78 +20,74 @@ This repository documents the complete development journey—from project setup 
 
 ## ✨ Current Progress
 
-- ✅ Flutter Project Initialized
-- ✅ GitHub Repository Setup
-- ✅ Project Folder Structure
-- ✅ Material 3 Theme Configuration
-- ✅ Assets Organization
-- ✅ Custom Application Logo
-- ✅ Animated Splash Screen (Lottie)
+- ✅ Flutter Project Initialized  
+- ✅ GitHub Repository Setup  
+- ✅ Project Folder Structure  
+- ✅ Material 3 Theme Configuration  
+- ✅ Assets Organization  
+- ✅ Custom Application Logo  
+- ✅ Animated Splash Screen (Lottie)  
 - 🔄 More features coming soon...
 
 ---
 
 ## 🚀 Planned Features
 
-- Customer & Store Owner Role Selection
-- Secure Authentication
-- Nearby Medical Store Finder
-- Medicine Search
-- Store Inventory Management
-- User Profiles
-- Light & Dark Theme
-- Interactive Maps
-- Notifications
-- Clean Architecture
-- Responsive UI
-- Production Release
+- Customer & Store Owner Role Selection  
+- Secure Authentication  
+- Nearby Medical Store Finder  
+- Medicine Search  
+- Store Inventory Management  
+- User Profiles  
+- Light & Dark Theme  
+- Interactive Maps  
+- Notifications  
+- Clean Architecture  
+- Responsive UI  
+- Production Release  
 
 ---
 
 ## 🛠️ Tech Stack
 
-- Flutter
-- Dart
-- Material Design 3
-- Lottie Animations
-- Git
-- GitHub
+- Flutter  
+- Dart  
+- Material Design 3  
+- Lottie Animations  
+- Git  
+- GitHub  
 
 ---
 
 ## 📂 Project Status
 
-> **This project is actively being developed.**
-
-Code, architecture, documentation, UI, and features will continue to evolve throughout development.
+> **This project is actively being developed.**  
+> Code, architecture, documentation, UI, and features will continue to evolve throughout development.
 
 ---
 
 ## 👨‍💻 Developer
 
-**Pranay Patil**
+**Pranay Patil**  
+Computer Science Engineering Student  
 
-Computer Science Engineering Student
-
-GitHub: https://github.com/Pranay-Pandurang-Patil
+GitHub: [Pranay-Pandurang-Patil](https://github.com/Pranay-Pandurang-Patil)
 
 ---
 
 ## 🤝 Contributions
 
-At this stage, this project is a personal learning and portfolio project.
-
+At this stage, this project is a personal learning and portfolio project.  
 Suggestions and constructive feedback are welcome.
 
 ---
 
 ## ⚠️ Copyright Notice
 
-© 2026 Pranay Patil. All rights reserved.
+© 2026 Pranay Patil. All rights reserved.  
 
-This repository is published publicly for learning, demonstration, and portfolio purposes.
-
-Please respect the author's work. If you use ideas or portions of this project for learning, appropriate attribution is appreciated.
+This repository is published publicly for learning, demonstration, and portfolio purposes.  
+Please respect the author's work. If you use ideas or portions of this project for learning, appropriate attribution is appreciated.  
 
 A formal open-source license will be added after the project's initial stable release.
 
@@ -99,8 +95,7 @@ A formal open-source license will be added after the project's initial stable re
 
 ## ⭐ Support
 
-If you find this project interesting, consider giving it a ⭐ on GitHub.
-
+If you find this project interesting, consider giving it a ⭐ on GitHub.  
 It motivates continued development and helps others discover the project.
 
 ---
@@ -108,19 +103,18 @@ It motivates continued development and helps others discover the project.
 <p align="center">
 Made with ❤️ using Flutter
 </p>
+
+---
+
 ## 📜 License
 
-MediLink is released as a **proprietary portfolio project**.
+MediLink is released as a **proprietary portfolio project**.  
 
-The public repository is provided for portfolio viewing, educational
-review, and project evaluation purposes.
+The public repository is provided for portfolio viewing, educational review, and project evaluation purposes.  
 
-The source code, project structure, original implementation, and assets
-may not be copied, redistributed, commercially reused, or used to create
-derivative applications without prior written permission.
+The source code, project structure, original implementation, and assets may not be copied, redistributed, commercially reused, or used to create derivative applications without prior written permission.  
 
 See the [LICENSE](LICENSE) file for the complete terms.
 
-> **Note:** This repository is a public showcase version of MediLink.
-> Selected production implementation and business logic are intentionally
-> excluded.
+> **Note:** This repository is a public showcase version of MediLink.  
+> Selected production implementation and business logic are intentionally excluded.
