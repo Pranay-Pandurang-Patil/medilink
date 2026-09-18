@@ -14,7 +14,7 @@
 
 **MediLink** is a modern Flutter application that aims to connect customers with nearby medical stores while providing store owners with tools to manage medicines and inventory efficiently.
 
-This repository documents the complete development journey—from project setup to the final production-ready application—with a focus on clean architecture, scalability, and modern Flutter development practices.
+This repository documents the complete development journey—from project setup to the final production-ready application—with a focus on clean architecture, scalability with modern Flutter development practices.
 
 ---
 
